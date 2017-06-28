@@ -1,15 +1,16 @@
 package com.xxl.job.admin.core.model;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
  * Created by xieyufang on 17/6/28.
  */
-public class XxlJobKettleDirectory {
+public class KettleDirectory {
 
     private int id;
-    private XxlJobKettleDirectory parent;
-    private List<XxlJobKettleDirectory> children;
+    private KettleDirectory parent;
+    private List<KettleDirectory> children;
 
     public int getId() {
         return id;
@@ -19,19 +20,20 @@ public class XxlJobKettleDirectory {
         this.id = id;
     }
 
-    public XxlJobKettleDirectory getParent() {
+    public KettleDirectory getParent() {
         return parent;
     }
 
-    public void setParent(XxlJobKettleDirectory parent) {
+    public void setParent(KettleDirectory parent) {
         this.parent = parent;
     }
 
-    public List<XxlJobKettleDirectory> getChildren() {
+    public List<KettleDirectory> getChildren() {
         return children;
     }
 
-    public void setChildren(List<XxlJobKettleDirectory> children) {
+    public void setChildren(List<KettleDirectory> children) {
         this.children = children;
     }
+
 }

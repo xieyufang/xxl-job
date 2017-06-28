@@ -11,22 +11,22 @@ import java.util.List;
 public class XxlJobKettleDaoImpl implements IXxlJobKettleDao {
 
     @Override
-    public List<XxlJobInfo> transPageList(int offset, int pagesize, String jobName) {
+    public List<XxlJobInfo> transLogPageList(int offset, int pagesize, String jobName) {
         return null;
     }
 
     @Override
-    public List<XxlJobInfo> jobPageList(int offset, int pagesize) {
+    public List<XxlJobInfo> jobLogPageList(int offset, int pagesize) {
         return null;
     }
 
     @Override
-    public int transPageListCount(int offset, int pagesize, String jobName) {
+    public int transLogPageListCount(int offset, int pagesize, String jobName) {
         return 0;
     }
 
     @Override
-    public int jobPageListCount(int offset, int pagesize, int jobGroup, String executorHandler) {
+    public int jobLogPageListCount(int offset, int pagesize, int jobGroup, String executorHandler) {
         return 0;
     }
 

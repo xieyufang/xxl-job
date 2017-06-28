@@ -1,8 +1,8 @@
 package com.xxl.job.admin.dao;
 
-import com.xxl.job.admin.core.model.XxlJobInfo;
+        import com.xxl.job.admin.core.model.XxlJobInfo;
 
-import java.util.List;
+        import java.util.List;
 
 /**
  * Created by xieyufang on 17/6/28.
@@ -18,6 +18,6 @@ public interface IXxlJobKettleDao {
     public int jobLogPageListCount(int offset, int pagesize, int jobGroup, String executorHandler);
 
 
-    public XxlJobInfo loadTransLogByJobName(String jobName);
+    public XxlJobInfo loadTransLogByJobName(String idJob);
 
 }

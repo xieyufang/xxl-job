@@ -5,12 +5,10 @@ import java.util.Date;
 /**
  * Created by xieyufang on 17/6/28.
  */
-public class XxlJobKettleJobLog {
+public class KettleTransLog {
 
-
-    private int idJob;
+    private int idBatch;
     private String channelId;
-    private String jobName;
     private String status;
     private int errors;
     private Date startDate;
@@ -20,13 +18,12 @@ public class XxlJobKettleJobLog {
     private Date replayDate;
     private String logField;
 
-
-    public int getIdJob() {
-        return idJob;
+    public int getIdBatch() {
+        return idBatch;
     }
 
-    public void setIdJob(int idJob) {
-        this.idJob = idJob;
+    public void setIdBatch(int idBatch) {
+        this.idBatch = idBatch;
     }
 
     public String getChannelId() {
@@ -35,14 +32,6 @@ public class XxlJobKettleJobLog {
 
     public void setChannelId(String channelId) {
         this.channelId = channelId;
-    }
-
-    public String getJobName() {
-        return jobName;
-    }
-
-    public void setJobName(String jobName) {
-        this.jobName = jobName;
     }
 
     public String getStatus() {
