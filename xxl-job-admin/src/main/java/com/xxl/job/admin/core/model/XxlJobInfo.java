@@ -36,6 +36,11 @@ public class XxlJobInfo {
 	// copy from quartz
 	private String jobStatus;		// 任务状态 【base on quartz】
 
+
+	private String KettleType;
+	private Integer KettleId;
+
+
 	public int getId() {
 		return id;
 	}
@@ -188,4 +193,19 @@ public class XxlJobInfo {
 		this.jobStatus = jobStatus;
 	}
 
+	public String getKettleType() {
+		return KettleType;
+	}
+
+	public void setKettleType(String kettleType) {
+		KettleType = kettleType;
+	}
+
+	public Integer getKettleId() {
+		return KettleId;
+	}
+
+	public void setKettleId(Integer kettleId) {
+		KettleId = kettleId;
+	}
 }

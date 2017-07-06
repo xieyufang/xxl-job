@@ -9,40 +9,43 @@
         <result column="extended_description" property="extendedDescription" />
         <result column="job_version" property="version" />
         <result column="job_status" property="status" />
-        <result column="create_date" property="createDate" />
+        <result column="created_date" property="createDate" />
         <result column="modified_date" property="modifiedDate" />
+
+        <collection property="kettleTransInfoList" javaType="ArrayList" column="id_job" ofType="KettleTransInfo" select="KettleTransInfoMapper.loadByJobId"/>
+
     </resultMap>
 
     <sql id="Base_Column_List">
-        t.id_transformation,
+        t.id_job,
         t.id_directory,
         t.description,
         t.extended_description,
-        t.trans_version,
-        t.trans_status,
-        t.create_date,
+        t.job_version,
+        t.job_status,
+        t.created_date,
         t.modified_date
     </sql>
 
-    <select id="findAll" resultMap="KettleTransInfo">
+    <select id="pageList" parameterType="java.util.HashMap" resultMap="KettleJobInfo">
         SELECT
         <include refid="Base_Column_List" />
-        FROM r_transformtion t
-        ORDER BY t.modified_date ASC
+        FROM r_job t
+        LEFT JOIN xxl_job_qrtz_trigger_info b on t.id_job = b.executor_param
+        WHERE b.glueType = 'KETTLE_JOB'
+        ORDER BY b.id DESC
+        LIMIT #{offset}, #{pageSize}
     </select>
 
-    <select id="findByJobId">
-        SELECT
-        <include refid="Base_Column_List" />
-        FROM r_transformtion t
-        INNER JOIN
-
+    <select id="count" resultMap="KettleJobInfo">
+        SELECT COUNT(1)
+        FROM r_job t
     </select>
 
-    <select id="load" resultMap="KettleTransInfo" parameterType="java.lang.Integer">
+    <select id="load" resultMap="KettleJobInfo" parameterType="java.lang.Integer">
         SELECT
         <include refid="Base_Column_List" />
-        FROM r_transformtion t
-        WHERE t.id_transformation = #{id}
+        FROM r_job t
+        WHERE t.id_job = #{id}
     </select>
 </mapper>

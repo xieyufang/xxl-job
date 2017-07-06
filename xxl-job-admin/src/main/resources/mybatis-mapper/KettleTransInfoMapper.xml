@@ -10,7 +10,7 @@
         <result column="extended_description" property="extendedDescription" />
         <result column="trans_version" property="version" />
         <result column="trans_status" property="status" />
-        <result column="create_date" property="createDate" />
+        <result column="created_date" property="createDate" />
         <result column="modified_date" property="modifiedDate" />
     </resultMap>
 
@@ -21,21 +21,37 @@
         t.extended_description,
         t.trans_version,
         t.trans_status,
-        t.create_date,
+        t.created_date,
         t.modified_date
     </sql>
 
-    <select id="findAll" resultMap="KettleTransInfo">
+    <select id="pageList" parameterType="java.util.HashMap" resultMap="KettleTransInfo">
         SELECT
         <include refid="Base_Column_List" />
-        FROM r_transformtion t
-        ORDER BY t.modified_date ASC
+        FROM r_transformation t
+        LEFT JOIN xxl_job_qrtz_trigger_info b on t.id_job = b.executor_param
+        WHERE b.glueType = 'KETTLE_TRANS'
+        ORDER BY b.id DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="count" resultMap="KettleTransInfo">
+        SELECT COUNT(1)
+        FROM r_transformation t
     </select>
 
     <select id="load" resultMap="KettleTransInfo" parameterType="java.lang.Integer">
         SELECT
         <include refid="Base_Column_List" />
-        FROM r_transformtion t
+        FROM r_transformation t
         WHERE t.id_transformation = #{id}
+    </select>
+
+    <select id="loadByJobId"  resultMap="KettleTransInfo" parameterType="java.lang.Integer">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM r_transformation t
+        LEFT JOIN r_jobentry_attribute b ON t.id_transformation = b.value_str
+        WHERE b.code = 'trans_object_id' AND id_job = #{id}
     </select>
 </mapper>

@@ -28,6 +28,7 @@
 		<result column="glue_updatetime" property="glueUpdatetime" />
 
 		<result column="child_jobkey" property="childJobKey" />
+
 	</resultMap>
 
 	<sql id="Base_Column_List">

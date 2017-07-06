@@ -6,6 +6,8 @@ package com.xxl.job.core.glue;
 public enum GlueTypeEnum {
 
     BEAN("BEAN模式"),
+    KETTLE_JOB("KETTLE作业模式"),
+    KETTLE_TRANS("KETTLE转换模式"),
     GLUE_GROOVY("GLUE模式(Java)"),
     GLUE_SHELL("GLUE模式(Shell)"),
     GLUE_PYTHON("GLUE模式(Python)");

@@ -172,6 +172,30 @@
 						<div class="col-sm-4"><input type="text" class="form-control" name="alarmEmail" placeholder="请输入“报警邮件”，多个邮件地址逗号分隔" maxlength="100" ></div>
 					</div>
 
+                    <div class="row" >
+                        <div class="col-xs-12">
+                            <div class="box">
+                                <div class="box-header">
+                                    <h3 class="box-title">Kettle</h3>
+                                </div>
+                                <div class="box-body" >
+                                    <table id="kettle_list" class="table table-bordered table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th name="name" >名称</th>
+                                            <th name="description" >描述</th>
+                                            <th name="extendedDescription">扩展描述</th>
+                                            <th name="extendedDescription">状态</th>
+                                            <th name="extendedDescription">版本</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                        <tfoot></tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <hr>
 					<div class="form-group">
 						<div class="col-sm-offset-3 col-sm-6">
@@ -179,6 +203,7 @@
 							<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 						</div>
 					</div>
+
 
 <input type="hidden" name="glueRemark" value="GLUE代码初始化" >
 <textarea name="glueSource" style="display:none;" ></textarea>
@@ -236,8 +261,10 @@ logging.info("脚本文件：" + sys.argv[0])
 					
 				</form>
          	</div>
+
 		</div>
 	</div>
+
 </div>
 
 <!-- 更新.模态框 -->

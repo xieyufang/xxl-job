@@ -1,6 +1,9 @@
 package com.xxl.job.dao.impl;
 
+import com.xxl.job.admin.core.model.KettleJobInfo;
 import com.xxl.job.admin.core.model.XxlJobInfo;
+import com.xxl.job.admin.dao.IKettleJobInfoDao;
+import com.xxl.job.admin.dao.IKettleTransInfoDao;
 import com.xxl.job.admin.dao.IXxlJobInfoDao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,7 +19,20 @@ public class XxlJobInfoTest {
 	
 	@Resource
 	private IXxlJobInfoDao xxlJobInfoDao;
-	
+
+	@Resource
+	private IKettleTransInfoDao kettleTransInfoDao;
+	@Resource
+	private IKettleJobInfoDao kettleJobInfoDao;
+
+	@Test
+	public void kettleTest(){
+		KettleJobInfo jobInfo = kettleJobInfoDao.load(1);
+
+		System.out.println(jobInfo.getDescription());
+		System.out.println(jobInfo.getKettleTransInfoList().size());
+	}
+
 	@Test
 	public void pageList(){
 		List<XxlJobInfo> list = xxlJobInfoDao.pageList(0, 20, 0, null);

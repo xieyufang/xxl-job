@@ -1,6 +1,7 @@
 package com.xxl.job.admin.core.model;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by xieyufang on 17/6/28.
@@ -8,7 +9,7 @@ import java.util.Date;
 public class KettleJobInfo {
 
     private int id;
-    private KettleDirectory directory;
+    private int idDirectory;
     private String name;
     private String description;
     private String extendedDescription;
@@ -16,6 +17,9 @@ public class KettleJobInfo {
     private int status;
     private Date createDate;
     private Date modifiedDate;
+
+
+    private List<KettleTransInfo> kettleTransInfoList;
 
     public int getId() {
         return id;
@@ -25,12 +29,12 @@ public class KettleJobInfo {
         this.id = id;
     }
 
-    public KettleDirectory getDirectory() {
-        return directory;
+    public int getIdDirectory() {
+        return idDirectory;
     }
 
-    public void setDirectory(KettleDirectory directory) {
-        this.directory = directory;
+    public void setIdDirectory(int idDirectory) {
+        this.idDirectory = idDirectory;
     }
 
     public String getName() {
@@ -87,5 +91,13 @@ public class KettleJobInfo {
 
     public void setModifiedDate(Date modifiedDate) {
         this.modifiedDate = modifiedDate;
+    }
+
+    public List<KettleTransInfo> getKettleTransInfoList() {
+        return kettleTransInfoList;
+    }
+
+    public void setKettleTransInfoList(List<KettleTransInfo> kettleTransInfoList) {
+        this.kettleTransInfoList = kettleTransInfoList;
     }
 }
