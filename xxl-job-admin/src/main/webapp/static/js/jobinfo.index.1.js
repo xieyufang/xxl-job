@@ -359,9 +359,21 @@ $(function () {
             //"scrollX": true,	// X轴滚动条，取消自适应
             "columns": [
                 {"data": 'id', "bSortable": false, "visible": false},
-                {"data": 'name', "visible": true, "width": '20%'},
-                {"data": 'description',"visible": true, "width": '20%'},
-                {"data": 'extendedDescription', "visible": true,"width": '20%'},
+                {"data": 'name', "visible": true},
+                {"data": 'description',"visible": true},
+                {"data": 'extendedDescription', "visible": true},
+                {"data": 'status',
+                    "visible": true,
+                    "render": function (data, type, row) {
+                        if (1 == row.status) {
+                            return "草案";
+                        } else if(0 == row.status){
+                            return "产品";
+                        }
+                        return "草案";
+
+                    }},
+                {"data": 'version', "visible": true}
             ],
             "language": {
                 "sProcessing": "处理中...",
@@ -391,7 +403,6 @@ $(function () {
 
 
         $('#kettle_list tbody').on( 'click', 'tr', function () {
-
             if ( $(this).hasClass('selected') ) {
                 $(this).removeClass('selected');
             }

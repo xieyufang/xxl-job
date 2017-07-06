@@ -29,13 +29,12 @@
         SELECT
         <include refid="Base_Column_List" />
         FROM r_transformation t
-        LEFT JOIN xxl_job_qrtz_trigger_info b on t.id_job = b.executor_param
-        WHERE b.glueType = 'KETTLE_TRANS'
+        LEFT JOIN (SELECT * FROM xxl_job_qrtz_trigger_info WHERE glue_type = 'KETTLE_TRANS') b on t.id_job = b.executor_param
         ORDER BY b.id DESC
         LIMIT #{offset}, #{pageSize}
     </select>
 
-    <select id="count" resultMap="KettleTransInfo">
+    <select id="count" resultType="int">
         SELECT COUNT(1)
         FROM r_transformation t
     </select>

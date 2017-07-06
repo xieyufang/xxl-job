@@ -5,7 +5,8 @@
     <resultMap id="KettleJobInfo" type="com.xxl.job.admin.core.model.KettleJobInfo" >
         <result column="id_job" property="id" />
         <result column="id_directory" property="idDirectory" />
-        <result column="description" property="name" />
+        <result column="name" property="name" />
+        <result column="description" property="description" />
         <result column="extended_description" property="extendedDescription" />
         <result column="job_version" property="version" />
         <result column="job_status" property="status" />
@@ -19,6 +20,7 @@
     <sql id="Base_Column_List">
         t.id_job,
         t.id_directory,
+        t.name,
         t.description,
         t.extended_description,
         t.job_version,
@@ -31,13 +33,12 @@
         SELECT
         <include refid="Base_Column_List" />
         FROM r_job t
-        LEFT JOIN xxl_job_qrtz_trigger_info b on t.id_job = b.executor_param
-        WHERE b.glueType = 'KETTLE_JOB'
+        LEFT JOIN (SELECT * FROM xxl_job_qrtz_trigger_info WHERE glue_type = 'KETTLE_JOB') b on t.id_job = b.executor_param
         ORDER BY b.id DESC
         LIMIT #{offset}, #{pageSize}
     </select>
 
-    <select id="count" resultMap="KettleJobInfo">
+    <select id="count" resultType="int">
         SELECT COUNT(1)
         FROM r_job t
     </select>

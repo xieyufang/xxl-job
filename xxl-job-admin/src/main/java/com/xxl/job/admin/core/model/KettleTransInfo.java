@@ -11,7 +11,7 @@ public class KettleTransInfo {
     private String name;
     private String description;
     private String extendedDescription;
-    private int version;
+    private String version;
     private int status;
 
     private Date createDate;
@@ -57,11 +57,11 @@ public class KettleTransInfo {
         this.extendedDescription = extendedDescription;
     }
 
-    public int getVersion() {
+    public String getVersion() {
         return version;
     }
 
-    public void setVersion(int version) {
+    public void setVersion(String version) {
         this.version = version;
     }
 

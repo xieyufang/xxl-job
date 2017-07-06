@@ -5,7 +5,9 @@
   	<#import "/common/common.macro.ftl" as netCommon>
 	<@netCommon.commonStyle />
 	<!-- DataTables -->
+    <link rel="stylesheet" href="${request.contextPath}/static/adminlte/plugins/bootstrap/css/bootstrap.min.css">
   	<link rel="stylesheet" href="${request.contextPath}/static/adminlte/plugins/datatables/dataTables.bootstrap.css">
+    <link rel="stylesheet" href="${request.contextPath}/static/adminlte/plugins/Select/css/select.bootstrap.min.css">
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini <#if cookieMap?exists && "off" == cookieMap["adminlte_settings"].value >sidebar-collapse</#if>">
@@ -182,11 +184,12 @@
                                     <table id="kettle_list" class="table table-bordered table-striped">
                                         <thead>
                                         <tr>
-                                            <th name="name" >名称</th>
-                                            <th name="description" >描述</th>
+                                            <th name="id">id</th>
+                                            <th name="name">名称</th>
+                                            <th name="description">描述</th>
                                             <th name="extendedDescription">扩展描述</th>
-                                            <th name="extendedDescription">状态</th>
-                                            <th name="extendedDescription">版本</th>
+                                            <th name="status">状态</th>
+                                            <th name="version">版本</th>
                                         </tr>
                                         </thead>
                                         <tbody></tbody>
