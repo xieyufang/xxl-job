@@ -5,7 +5,6 @@
   	<#import "/common/common.macro.ftl" as netCommon>
 	<@netCommon.commonStyle />
 	<!-- DataTables -->
-    <link rel="stylesheet" href="${request.contextPath}/static/adminlte/plugins/bootstrap/css/bootstrap.min.css">
   	<link rel="stylesheet" href="${request.contextPath}/static/adminlte/plugins/datatables/dataTables.bootstrap.css">
     <link rel="stylesheet" href="${request.contextPath}/static/adminlte/plugins/Select/css/select.bootstrap.min.css">
 
@@ -174,7 +173,7 @@
 						<div class="col-sm-4"><input type="text" class="form-control" name="alarmEmail" placeholder="请输入“报警邮件”，多个邮件地址逗号分隔" maxlength="100" ></div>
 					</div>
 
-                    <div class="row" >
+                    <div class="row" name="kettleRecord" hidden>
                         <div class="col-xs-12">
                             <div class="box">
                                 <div class="box-header">
@@ -201,7 +200,7 @@
                     </div>
                     <hr>
 					<div class="form-group">
-						<div class="col-sm-offset-3 col-sm-6">
+						<div class="col-sm-offset-4 col-sm-6">
 							<button type="submit" class="btn btn-primary"  >保存</button>
 							<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 						</div>
@@ -348,7 +347,7 @@ logging.info("脚本文件：" + sys.argv[0])
 
 					<hr>
 					<div class="form-group">
-                        <div class="col-sm-offset-3 col-sm-6">
+                        <div class="col-sm-offset-4 col-sm-6">
 							<button type="submit" class="btn btn-primary"  >保存</button>
 							<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                             <input type="hidden" name="id" >
@@ -364,7 +363,9 @@ logging.info("脚本文件：" + sys.argv[0])
 <!-- DataTables -->
 <script src="${request.contextPath}/static/adminlte/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="${request.contextPath}/static/adminlte/plugins/datatables/dataTables.bootstrap.min.js"></script>
+<script src="${request.contextPath}/static/adminlte/plugins/Select/js/dataTables.select.min.js"></script>
 <script src="${request.contextPath}/static/plugins/jquery/jquery.validate.min.js"></script>
+
 <!-- moment -->
 <script src="${request.contextPath}/static/adminlte/plugins/daterangepicker/moment.min.js"></script>
 <script src="${request.contextPath}/static/js/jobinfo.index.1.js"></script>

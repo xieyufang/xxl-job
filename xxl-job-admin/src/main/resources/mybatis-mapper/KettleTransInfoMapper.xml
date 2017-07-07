@@ -6,7 +6,8 @@
     <resultMap id="KettleTransInfo" type="com.xxl.job.admin.core.model.KettleTransInfo" >
         <result column="id_transformation" property="id" />
         <result column="id_directory" property="idDirectory" />
-        <result column="description" property="name" />
+        <result column="name" property="name" />
+        <result column="description" property="description" />
         <result column="extended_description" property="extendedDescription" />
         <result column="trans_version" property="version" />
         <result column="trans_status" property="status" />
@@ -17,6 +18,7 @@
     <sql id="Base_Column_List">
         t.id_transformation,
         t.id_directory,
+        t.name,
         t.description,
         t.extended_description,
         t.trans_version,
@@ -29,7 +31,7 @@
         SELECT
         <include refid="Base_Column_List" />
         FROM r_transformation t
-        LEFT JOIN (SELECT * FROM xxl_job_qrtz_trigger_info WHERE glue_type = 'KETTLE_TRANS') b on t.id_job = b.executor_param
+        LEFT JOIN (SELECT * FROM xxl_job_qrtz_trigger_info WHERE glue_type = 'KETTLE_TRANS') b on t.id_transformation = b.executor_param
         ORDER BY b.id DESC
         LIMIT #{offset}, #{pageSize}
     </select>

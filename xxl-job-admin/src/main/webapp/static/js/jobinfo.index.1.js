@@ -311,41 +311,29 @@ $(function () {
         $("#addModal .form input[name='executorHandler']").removeAttr("readonly");
     });
 
-
-    // 运行模式
-    $(".glueType").change(function () {
-        // executorHandler
-        var $executorHandler = $(this).parents("form").find("input[name='executorHandler']");
-        var $executorParam = $(this).parents("form").find("input[name='executorParam']");
-        var glueType = $(this).val();
-        if ('BEAN' == glueType) {
-            $executorHandler.removeAttr("readonly");
-            $executorParam.removeAttr("readonly");
-        } else if ('KETTLE_TRANS' == glueType) {
-            $executorHandler.val("kettle_trans");
-            $executorHandler.attr("readonly", "readonly");
-            $executorParam.attr("readonly", "readonly");
-        } else if ('KETTLE_JOB' == glueType) {
-            $executorHandler.val("kettle_job");
-            $executorHandler.attr("readonly", "readonly");
-            $executorParam.attr("readonly", "readonly");
-        } else {
-            $executorHandler.val("");
-            $executorHandler.attr("readonly", "readonly");
-            $executorParam.attr("readonly", "readonly");
+    var kettleTable;
+    function loadKettleByType(type,param) {
+        var url;
+        if('KETTLE_TRANS' == type){
+            url = base_url + "/kettleInfo/trans/pageList"
+        }else if('KETTLE_JOB' == type){
+            url = base_url + "/kettleInfo/job/pageList"
         }
 
-    });
+        if(kettleTable != null && kettleTable != 'undefined'){
+            kettleTable.clear();
+            kettleTable.destroy();
+        }
 
-
-    //function loadKettleByType(obj) {
-        var kettleTable = $("#kettle_list").dataTable({
+        kettleTable = $("#kettle_list").DataTable({
+            "select":true,
+            "pageLength":5,
             "deferRender": true,
             "processing": true,
             "serverSide": true,
             "lengthChange": false,
             "ajax": {
-                url: base_url + "/kettleInfo/job/pageList",
+                url: url,
                 type: "post",
                 data: function (d) {
                     var obj = {};
@@ -359,9 +347,9 @@ $(function () {
             //"scrollX": true,	// X轴滚动条，取消自适应
             "columns": [
                 {"data": 'id', "bSortable": false, "visible": false},
-                {"data": 'name', "visible": true},
-                {"data": 'description',"visible": true},
-                {"data": 'extendedDescription', "visible": true},
+                {"data": 'name', "visible": false},
+                {"data": 'description',"visible": true,"width": '40%'},
+                {"data": 'extendedDescription', "visible": true,"width": '40%'},
                 {"data": 'status',
                     "visible": true,
                     "render": function (data, type, row) {
@@ -372,8 +360,8 @@ $(function () {
                         }
                         return "草案";
 
-                    }},
-                {"data": 'version', "visible": true}
+                    },"width": '10%'},
+                {"data": 'version', "visible": true,"width": '10%'}
             ],
             "language": {
                 "sProcessing": "处理中...",
@@ -401,20 +389,45 @@ $(function () {
             }
         });
 
+        kettleTable.on('select',function ( e, dt, type, indexes) {
+            var rowData = kettleTable.rows( indexes ).data().toArray();
+            param.val(rowData[0].name);
+        });
+        param.attr("readonly", "readonly");
+    }
 
-        $('#kettle_list tbody').on( 'click', 'tr', function () {
-            if ( $(this).hasClass('selected') ) {
-                $(this).removeClass('selected');
-            }
-            else {
-                kettleTable.$('tr.selected').removeClass('selected');
-                $(this).addClass('selected');
-            }
+    // 运行模式
+    $(".glueType").change(function () {
+        // executorHandler
+        var $executorHandler = $(this).parents("form").find("input[name='executorHandler']");
+        var $executorParam = $(this).parents("form").find("input[name='executorParam']");
+        var $kettleRecord = $(this).parents("form").find("div[name='kettleRecord']");
+        var glueType = $(this).val();
+        $executorParam.val("");
+        if ('BEAN' == glueType) {
+            $kettleRecord.hide();
+            $executorHandler.removeAttr("readonly");
+            $executorParam.removeAttr("readonly");
+        } else if ('KETTLE_TRANS' == glueType) {
+            $kettleRecord.show();
+            $executorHandler.val("kettle_trans");
+            $executorHandler.attr("readonly", "readonly");
+            loadKettleByType(glueType,$executorParam);
+        } else if ('KETTLE_JOB' == glueType) {
+            $kettleRecord.show();
+            $executorHandler.val("kettle_job");
+            $executorHandler.attr("readonly", "readonly");
+            loadKettleByType(glueType,$executorParam);
+        } else {
+            $kettleRecord.hide();
+            $executorHandler.val("");
+            $executorHandler.attr("readonly", "readonly");
+            $executorParam.attr("readonly", "readonly");
+        }
 
-            var data = kettleTable.fnGetData(this);
+    });
 
-        } );
-    //}
+
 
     $("#addModal .glueType").change(function () {
         // glueSource
