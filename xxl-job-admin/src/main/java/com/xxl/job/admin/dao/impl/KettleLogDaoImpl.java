@@ -29,7 +29,6 @@ public class KettleLogDaoImpl implements IKettleLogDao{
         params.put("status",status);
         params.put("startDate",startDate);
         params.put("endDate",endDate);
-        System.out.println(startDate);
         return sqlSessionTemplate.selectList("KettleLogMapper.pageList",params);
     }
 
