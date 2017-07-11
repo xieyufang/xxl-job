@@ -180,7 +180,7 @@
                                     <h3 class="box-title">Kettle</h3>
                                 </div>
                                 <div class="box-body" >
-                                    <table id="kettle_list" class="table table-bordered table-striped">
+                                    <table id="kettle_list" class="table table-bordered table-striped" style="width: 100%">
                                         <thead>
                                         <tr>
                                             <th name="id">id</th>
@@ -344,7 +344,31 @@ logging.info("脚本文件：" + sys.argv[0])
                         <label for="lastname" class="col-sm-2 control-label">报警邮件<font color="black">*</font></label>
                         <div class="col-sm-4"><input type="text" class="form-control" name="alarmEmail" placeholder="请输入“报警邮件”，多个邮件地址逗号分隔" maxlength="100" ></div>
                     </div>
-
+                    <div class="row" name="kettleRecord" hidden>
+                        <div class="col-sm-12">
+                            <div class="box">
+                                <div class="box-header">
+                                    <h3 class="box-title">Kettle</h3>
+                                </div>
+                                <div class="box-body" >
+                                    <table id="kettle_list_update" class="table table-bordered table-striped" style="width: 100%">
+                                        <thead>
+                                        <tr>
+                                            <th name="id">id</th>
+                                            <th name="name">名称</th>
+                                            <th name="description">描述</th>
+                                            <th name="extendedDescription">扩展描述</th>
+                                            <th name="status">状态</th>
+                                            <th name="version">版本</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                        <tfoot></tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 					<hr>
 					<div class="form-group">
                         <div class="col-sm-offset-4 col-sm-6">

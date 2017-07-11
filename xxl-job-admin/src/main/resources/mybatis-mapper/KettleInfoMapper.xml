@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="KettleInfoMapper">
+    <resultMap id="KettleInfo" type="com.xxl.job.admin.core.model.KettleInfo" >
+        <result column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="path" property="path" />
+        <result column="description" property="description" />
+        <result column="type" property="type" />
+        <result column="status" property="status" />
+        <result column="version" property="version" />
+        <result column="created_date" property="createDate" />
+        <result column="modified_date" property="modifiedDate" />
+
+        <collection property="kettleInfoList" javaType="ArrayList" column="id_job" ofType="KettleInfo" select="load"/>
+
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        t.id,
+        t.name,
+        t.path,
+        t.description,
+        t.type,
+        t.status,
+        t.version,
+        t.created_date,
+        t.modified_date
+    </sql>
+
+    <select id="pageList" parameterType="java.util.HashMap" resultMap="KettleInfo">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM xxl_job_qrtz_kettle_info t WHERE t.type = #{type}
+        ORDER BY t.modified_date DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="count" parameterType="java.lang.String" resultType="int">
+        SELECT COUNT(1)
+        FROM xxl_job_qrtz_kettle_info t WHERE t.type = #{type}
+    </select>
+
+    <select id="load" parameterType="java.lang.String" resultMap="KettleJobInfo">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM xxl_job_qrtz_kettle_info t
+        WHERE t.id = #{id}
+    </select>
+</mapper>

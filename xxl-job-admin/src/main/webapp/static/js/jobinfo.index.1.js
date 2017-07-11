@@ -57,6 +57,10 @@ $(function () {
                         return "GLUE模式(Python)";
                     } else if ('BEAN' == row.glueType) {
                         return "BEAN模式：" + row.executorHandler;
+                    }else if ('KETTLE_JOB' == row.glueType){
+                        return "KETTLE_JOB模式";
+                    }else if ('KETTLE_TRANS' == row.glueType){
+                        return "KETTLE_TRANS模式";
                     }
                     return row.executorHandler;
                 }
@@ -112,7 +116,7 @@ $(function () {
 
                         // log url
                         var codeBtn = "";
-                        if ('BEAN' != row.glueType) {
+                        if ('BEAN' != row.glueType && 'KETTLE_JOB'!=row.glueType && 'KETTLE_TRANS'!=row.glueType) {
                             var codeUrl = base_url + '/jobcode?jobId=' + row.id;
                             codeBtn = '<button class="btn btn-warning btn-xs" type="button" onclick="javascript:window.open(\'' + codeUrl + '\')" >GLUE</button>  '
                         }
@@ -240,6 +244,7 @@ $(function () {
 
     // 新增
     $(".add").click(function () {
+        $("#addModal .form select[name=glueType]").change();
         $('#addModal').modal({backdrop: false, keyboard: false}).modal('show');
     });
     var addModalValidate = $("#addModal .form").validate({
@@ -312,7 +317,7 @@ $(function () {
     });
 
     var kettleTable;
-    function loadKettleByType(type,param) {
+    function loadKettleByType(domId,type,param) {
         var url;
         if('KETTLE_TRANS' == type){
             url = base_url + "/kettleInfo/trans/pageList"
@@ -325,7 +330,7 @@ $(function () {
             kettleTable.destroy();
         }
 
-        kettleTable = $("#kettle_list").DataTable({
+        kettleTable = $(domId).DataTable({
             "select":true,
             "pageLength":5,
             "deferRender": true,
@@ -412,12 +417,12 @@ $(function () {
             $kettleRecord.show();
             $executorHandler.val("kettle_trans");
             $executorHandler.attr("readonly", "readonly");
-            loadKettleByType(glueType,$executorParam);
+            loadKettleByType("#kettle_list",glueType,$executorParam);
         } else if ('KETTLE_JOB' == glueType) {
             $kettleRecord.show();
             $executorHandler.val("kettle_job");
             $executorHandler.attr("readonly", "readonly");
-            loadKettleByType(glueType,$executorParam);
+            loadKettleByType("#kettle_list",glueType,$executorParam);
         } else {
             $kettleRecord.hide();
             $executorHandler.val("");
@@ -455,6 +460,10 @@ $(function () {
             return;
         }
 
+        $('#updateModal .form select[name=glueType] option[value=' + row.glueType + ']').prop('selected', true);
+
+        $("#updateModal .form select[name=glueType]").change();
+
         // base data
         $("#updateModal .form input[name='id']").val(row.id);
         $('#updateModal .form select[name=jobGroup] option[value=' + row.jobGroup + ']').prop('selected', true);
@@ -468,9 +477,18 @@ $(function () {
         $("#updateModal .form input[name='childJobKey']").val(row.childJobKey);
         $('#updateModal .form select[name=executorBlockStrategy] option[value=' + row.executorBlockStrategy + ']').prop('selected', true);
         $('#updateModal .form select[name=executorFailStrategy] option[value=' + row.executorFailStrategy + ']').prop('selected', true);
-        $('#updateModal .form select[name=glueType] option[value=' + row.glueType + ']').prop('selected', true);
 
-        $("#updateModal .form select[name=glueType]").change();
+
+
+
+
+        if('KETTLE_TRANS' == row.glueType || 'KETTLE_JOB' == row.glueType){
+            loadKettleByType("#kettle_list_update",row.glueType,$("#updateModal .form input[name='executorParam']"));
+        }else{
+            $('#updateModal').modal({backdrop: false, keyboard: false}).modal('show');
+            return;
+        }
+
 
         // show
         $('#updateModal').modal({backdrop: false, keyboard: false}).modal('show');

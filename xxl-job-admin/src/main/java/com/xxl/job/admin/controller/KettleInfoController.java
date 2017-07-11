@@ -50,4 +50,14 @@ public class KettleInfoController {
                                              @RequestParam(required = false, defaultValue = "10") int length){
         return kettleInfoService.transPageList(start,length);
     }
+
+    @RequestMapping("/pageList")
+    @ResponseBody
+    public Map<String, Object> pageList(@RequestParam(required = false, defaultValue = "0") int start,
+                                        @RequestParam(required = false, defaultValue = "10") int length,
+                                        @RequestParam(required = false) String type
+                                        ){
+        return kettleInfoService.pageList(start,length,type);
+    }
+
 }
