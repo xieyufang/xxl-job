@@ -117,15 +117,15 @@ $(function () {
     });
 
     $("#kettleType").on("change",function () {
-        kettleLogTable.ajax.reload();
+        kettleLogTable.fnDraw();
     });
 
     $("#kettleLogStatus").on("change",function () {
-        kettleLogTable.ajax.reload();
+        kettleLogTable.fnDraw();
     });
 
     $("#searchBtn").on("click",function () {
-        kettleLogTable.ajax.reload();
+        kettleLogTable.fnDraw();
     });
 
 });
