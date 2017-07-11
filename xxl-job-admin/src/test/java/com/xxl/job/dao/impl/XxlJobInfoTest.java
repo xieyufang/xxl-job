@@ -1,8 +1,10 @@
 package com.xxl.job.dao.impl;
 
 import com.xxl.job.admin.core.model.KettleJobInfo;
+import com.xxl.job.admin.core.model.KettleLog;
 import com.xxl.job.admin.core.model.XxlJobInfo;
 import com.xxl.job.admin.dao.IKettleJobInfoDao;
+import com.xxl.job.admin.dao.IKettleLogDao;
 import com.xxl.job.admin.dao.IKettleTransInfoDao;
 import com.xxl.job.admin.dao.IXxlJobInfoDao;
 import org.junit.Test;
@@ -24,6 +26,15 @@ public class XxlJobInfoTest {
 	private IKettleTransInfoDao kettleTransInfoDao;
 	@Resource
 	private IKettleJobInfoDao kettleJobInfoDao;
+	@Resource
+	private IKettleLogDao kettleLogDao;
+
+	@Test
+	public void kettleLogTest(){
+		List<KettleLog> list = kettleLogDao.pageList(0,10,"企业","KETTLE_TRANS","end");
+
+		Integer count = kettleLogDao.count("test","KETTLE_TRANS","end");
+	}
 
 	@Test
 	public void kettleTest(){

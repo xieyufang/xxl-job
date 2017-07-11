@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="KettleLogMapper">
+    <resultMap id="KettleLog" type="com.xxl.job.admin.core.model.KettleLog">
+        <result column="id" property="id"/>
+        <result column="status" property="status"/>
+        <result column="description" property="description"/>
+        <result column="errors" property="errors"/>
+        <result column="replayDate" property="startDate"/>
+        <result column="endDate" property="endDate"/>
+        <result column="logField" property="logField"/>
+        <association column="kettleId" property="kettleInfo" javaType="com.xxl.job.admin.core.model.KettleInfo"
+                     select="KettleInfoMapper.load"/>
+    </resultMap>
+
+    <sql id="Job_Base_Column_List">
+        t.id_job as id,
+        t.jobname as kettleId,
+        t.status,
+        t.errors,
+        t.replayDate,
+        t.endDate,
+        t.logField
+    </sql>
+
+    <sql id="Trans_Base_Column_List">
+            t.id_batch as id,
+            t.transname as kettleId,
+            t.status,
+            t.errors,
+            t.replayDate,
+            t.endDate,
+            t.logField
+    </sql>
+
+    <select id="pageList" parameterType="java.util.HashMap" resultMap="KettleLog">
+        SELECT
+        <choose>
+            <when test="type == 'KETTLE_TRANS'">
+                <include refid="Trans_Base_Column_List"/>
+                FROM xxl_job_qrtz_kettle_trans_log t
+            </when>
+            <otherwise>
+                <include refid="Job_Base_Column_List"/>
+                FROM xxl_job_qrtz_kettle_job_log t
+            </otherwise>
+        </choose>
+        LEFT JOIN xxl_job_qrtz_kettle_info b on
+        <choose>
+            <when test="type == 'KETTLE_TRANS'">
+                t.transname = b.id
+            </when>
+            <otherwise>
+                t.jobname = b.id
+            </otherwise>
+        </choose>
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="name!=null and name !=''">
+                AND b.name LIKE CONCAT('%',#{name},'%')
+            </if>
+            <if test="start != null">
+                AND t.replayDate <![CDATA[ >= ]]> #{start}
+            </if>
+            <if test="end != null">
+                AND t.replayDate <![CDATA[ <= ]]> #{end}
+            </if>
+        </trim>
+        ORDER BY t.replayDate DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="count" parameterType="java.util.HashMap" resultType="int">
+        SELECT
+        COUNT(1)
+        <choose>
+            <when test="type == 'KETTLE_TRANS'">
+                FROM xxl_job_qrtz_kettle_trans_log t
+            </when>
+            <otherwise>
+                FROM xxl_job_qrtz_kettle_job_log t
+            </otherwise>
+        </choose>
+        LEFT JOIN xxl_job_qrtz_kettle_info b on
+        <choose>
+            <when test="type == 'KETTLE_TRANS'">
+                t.transname = b.id
+            </when>
+            <otherwise>
+                t.jobname = b.id
+            </otherwise>
+        </choose>
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="name!=null and name !=''">
+                AND b.name LIKE CONCAT('%',#{name},'%')
+            </if>
+            <if test="start != null">
+                AND t.replayDate <![CDATA[ >= ]]> #{start}
+            </if>
+            <if test="end != null">
+                AND t.replayDate <![CDATA[ <= ]]> #{end}
+            </if>
+        </trim>
+    </select>
+
+</mapper>

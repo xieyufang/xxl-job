@@ -2,16 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="KettleInfoMapper">
-    <resultMap id="KettleInfo" type="com.xxl.job.admin.core.model.KettleInfo" >
-        <result column="id" property="id" />
-        <result column="name" property="name" />
-        <result column="path" property="path" />
-        <result column="description" property="description" />
-        <result column="type" property="type" />
-        <result column="status" property="status" />
-        <result column="version" property="version" />
-        <result column="created_date" property="createdDate" />
-        <result column="modified_date" property="modifiedDate" />
+    <resultMap id="KettleInfo" type="com.xxl.job.admin.core.model.KettleInfo">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="path" property="path"/>
+        <result column="description" property="description"/>
+        <result column="type" property="type"/>
+        <result column="status" property="status"/>
+        <result column="version" property="version"/>
+        <result column="created_date" property="createdDate"/>
+        <result column="modified_date" property="modifiedDate"/>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -28,42 +28,46 @@
 
     <select id="pageList" parameterType="java.util.HashMap" resultMap="KettleInfo">
         SELECT
-        <include refid="Base_Column_List" />
-        FROM xxl_job_qrtz_kettle_info t WHERE 1=1
-        <if test="name!=null and name !=''">
-            AND t.name LIKE CONCAT('%',#{name},'%')
-        </if>
+        <include refid="Base_Column_List"/>
+        FROM xxl_job_qrtz_kettle_info t
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="name!=null and name !=''">
+                AND t.name LIKE CONCAT('%',#{name},'%')
+            </if>
 
-        <if test="type!=null and type !=''">
-            AND t.type = #{type}
-        </if>
+            <if test="type!=null and type !=''">
+                AND t.type = #{type}
+            </if>
 
-        <if test="status!=null and status !=''">
-            AND t.status = #{status}
-        </if>
+            <if test="status!=null and status !=''">
+                AND t.status = #{status}
+            </if>
+        </trim>
         ORDER BY t.modified_date DESC
         LIMIT #{offset}, #{pageSize}
     </select>
 
-    <select id="count"  parameterType="java.util.HashMap" resultType="int">
+    <select id="count" parameterType="java.util.HashMap" resultType="int">
         SELECT COUNT(1)
-        FROM xxl_job_qrtz_kettle_info t WHERE 1=1
-        <if test="name!=null and name !=''">
-            AND t.name LIKE CONCAT('%',#{name},'%')
-        </if>
+        FROM xxl_job_qrtz_kettle_info t
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="name!=null and name !=''">
+                AND t.name LIKE CONCAT('%',#{name},'%')
+            </if>
 
-        <if test="type!=null and type !=''">
-            AND t.type = #{type}
-        </if>
+            <if test="type!=null and type !=''">
+                AND t.type = #{type}
+            </if>
 
-        <if test="status!=null and status !=''">
-            AND t.status = #{status}
-        </if>
+            <if test="status!=null and status !=''">
+                AND t.status = #{status}
+            </if>
+        </trim>
     </select>
 
     <select id="load" parameterType="java.lang.String" resultMap="KettleInfo">
         SELECT
-        <include refid="Base_Column_List" />
+        <include refid="Base_Column_List"/>
         FROM xxl_job_qrtz_kettle_info t
         WHERE t.id = #{id}
     </select>
