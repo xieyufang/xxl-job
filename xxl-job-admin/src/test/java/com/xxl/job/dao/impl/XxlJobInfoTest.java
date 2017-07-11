@@ -31,9 +31,7 @@ public class XxlJobInfoTest {
 
 	@Test
 	public void kettleLogTest(){
-		List<KettleLog> list = kettleLogDao.pageList(0,10,"企业","KETTLE_TRANS","end");
 
-		Integer count = kettleLogDao.count("test","KETTLE_TRANS","end");
 	}
 
 	@Test

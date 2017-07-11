@@ -1,6 +1,8 @@
 package com.xxl.job.admin.controller;
 
+import com.xxl.job.admin.dao.IKettleLogDao;
 import com.xxl.job.admin.service.IKettleInfoService;
+import com.xxl.job.admin.service.IKettleLogService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +21,7 @@ import java.util.Map;
 public class KettleLogController {
 
     @Resource
-    private IKettleInfoService kettleInfoService;
+    private IKettleLogService kettleLogService;
 
 
     @RequestMapping
@@ -30,12 +32,14 @@ public class KettleLogController {
     @RequestMapping("/pageList")
     @ResponseBody
     public Map<String, Object> pageList(@RequestParam(required = false, defaultValue = "0") int start,
-                                           @RequestParam(required = false, defaultValue = "10") int length){
-        return  kettleInfoService.jobPageList(start,length);
-
-
+                                        @RequestParam(required = false, defaultValue = "10") int length,
+                                        @RequestParam(required = false) String name,
+                                        @RequestParam(required = false) String type,
+                                        @RequestParam(required = false) String status,
+                                        @RequestParam(required = false) String filterTime
+    ) {
+        return kettleLogService.pageList(start, length, name, type, status, filterTime);
     }
-
 
 
 }

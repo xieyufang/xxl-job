@@ -9,7 +9,7 @@
         <result column="errors" property="errors"/>
         <result column="replayDate" property="startDate"/>
         <result column="endDate" property="endDate"/>
-        <result column="logField" property="logField"/>
+        <result column="log_field" property="logField"/>
         <association column="kettleId" property="kettleInfo" javaType="com.xxl.job.admin.core.model.KettleInfo"
                      select="KettleInfoMapper.load"/>
     </resultMap>
@@ -21,7 +21,7 @@
         t.errors,
         t.replayDate,
         t.endDate,
-        t.logField
+        t.log_field
     </sql>
 
     <sql id="Trans_Base_Column_List">
@@ -31,7 +31,7 @@
             t.errors,
             t.replayDate,
             t.endDate,
-            t.logField
+            t.log_field
     </sql>
 
     <select id="pageList" parameterType="java.util.HashMap" resultMap="KettleLog">
@@ -59,11 +59,14 @@
             <if test="name!=null and name !=''">
                 AND b.name LIKE CONCAT('%',#{name},'%')
             </if>
-            <if test="start != null">
-                AND t.replayDate <![CDATA[ >= ]]> #{start}
+            <if test="status!=null and status !=''">
+                AND t.status = #{status}
             </if>
-            <if test="end != null">
-                AND t.replayDate <![CDATA[ <= ]]> #{end}
+            <if test="startDate != null">
+                AND t.replayDate <![CDATA[ >= ]]> #{startDate}
+            </if>
+            <if test="endDate != null">
+                AND t.replayDate <![CDATA[ <= ]]> #{endDate}
             </if>
         </trim>
         ORDER BY t.replayDate DESC
@@ -94,11 +97,14 @@
             <if test="name!=null and name !=''">
                 AND b.name LIKE CONCAT('%',#{name},'%')
             </if>
-            <if test="start != null">
-                AND t.replayDate <![CDATA[ >= ]]> #{start}
+            <if test="status!=null and status !=''">
+                AND t.status = #{status}
             </if>
-            <if test="end != null">
-                AND t.replayDate <![CDATA[ <= ]]> #{end}
+            <if test="startDate != null">
+                AND t.replayDate <![CDATA[ >= ]]> #{startDate}
+            </if>
+            <if test="endDate != null">
+                AND t.replayDate <![CDATA[ <= ]]> #{startDate}
             </if>
         </trim>
     </select>

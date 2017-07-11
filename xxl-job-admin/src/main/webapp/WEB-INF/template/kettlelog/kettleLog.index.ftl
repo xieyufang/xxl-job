@@ -32,17 +32,27 @@
 		<!-- Main content -->
 	    <section class="content">
 	    	<div class="row">
-	    		<div class="col-xs-3">
+	    		<div class="col-xs-2">
  					<div class="input-group">
 	                	<span class="input-group-addon">类型</span>
                 		<select class="form-control" id="kettleType">
-                            <option value="" >全部</option>
 							<option value="KETTLE_TRANS" >转换</option>
                             <option value="KETTLE_JOB" >作业</option>
 	                  	</select>
 	              	</div>
 	            </div>
-	            <div class="col-xs-3">
+                <div class="col-xs-2">
+                    <div class="input-group">
+                        <span class="input-group-addon">状态</span>
+                        <select class="form-control" id="kettleLogStatus">
+                            <option value="" >全部</option>
+                            <option value="stop" >stop</option>
+                            <option value="end" >end</option>
+                            <option value="start" >start</option>
+                        </select>
+                    </div>
+                </div>
+	            <div class="col-xs-2">
 	              	<div class="input-group">
 	                	<span class="input-group-addon">名称</span>
                         <input type="text" class="form-control" id="kettleName" autocomplete="on" >
@@ -69,17 +79,19 @@
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="box">
-			            <div class="box-header hide"><h3 class="box-title">调度日志</h3></div>
+			            <div class="box-header hide"><h3 class="box-title">KETTLE日志</h3></div>
 			            <div class="box-body">
-			              	<table id="joblog_list" class="table table-bordered table-striped display" width="100%" >
+			              	<table id="kettleLog_list" class="table table-bordered table-striped display" width="100%" >
 				                <thead>
 					            	<tr>
 					                	<th name="id" >id</th>
-                                        <th name="name" >名称</th>
-					                	<th name="kettleId" >KettleID</th>
-					                  	<th name="replayDate" >执行时间</th>
+                                        <th name="kettle.id" >KettleID</th>
+                                        <th name="kettle.name" >名称</th>
+                                        <th name="kettle.description" >描述</th>
+										<th name="errors">错误数</th>
+                                        <th name="status" >执行状态</th>
+					                  	<th name="startDate" >执行时间</th>
                                         <th name="endDate" >结束时间</th>
-					                  	<th name="status" >执行结果</th>
 					                  	<th name="handleMsg" >操作</th>
 					                </tr>
 				                </thead>
@@ -158,6 +170,6 @@
 <!-- daterangepicker -->
 <script src="${request.contextPath}/static/adminlte/plugins/daterangepicker/moment.min.js"></script>
 <script src="${request.contextPath}/static/adminlte/plugins/daterangepicker/daterangepicker.js"></script>
-<script src="${request.contextPath}/static/js/joblog.index.1.js"></script>
+<script src="${request.contextPath}/static/js/kettleLog.index.1.js"></script>
 </body>
 </html>
