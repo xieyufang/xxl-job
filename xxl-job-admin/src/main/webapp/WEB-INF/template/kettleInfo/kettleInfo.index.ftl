@@ -135,14 +135,7 @@
                             </select>
 						</div>
                     </div>
-                    <div class="form-group">
-                        <label for="firstname" class="col-sm-2 control-label">版本<font color="red">*</font></label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" name="executorHandler" placeholder="请输入“版本”" maxlength="100" >
-                        </div>
-                        <label for="firstname" class="col-sm-2 control-label">JobHandler<font color="black">*</font></label>
-                        <div class="col-sm-4"></div>
-                    </div>
+
                     <hr>
 					<div class="form-group">
 						<div class="col-sm-offset-4 col-sm-6">

@@ -96,4 +96,8 @@ $(function () {
         kettleTable.ajax.reload();
     })
 
+    $(".add").on("click",function () {
+        $('#addModal').modal({backdrop: false, keyboard: false}).modal('show');
+    });
+
 });
