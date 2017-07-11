@@ -15,5 +15,5 @@ public interface IKettleInfoService {
 
     public Map<String,Object> transPageList(int start, int length);
 
-    public Map<String,Object> pageList(int start, int length,String type);
+    public Map<String,Object> pageList(int start, int length,String name,String type,String status);
 }

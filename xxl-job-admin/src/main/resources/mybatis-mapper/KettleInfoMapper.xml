@@ -10,11 +10,8 @@
         <result column="type" property="type" />
         <result column="status" property="status" />
         <result column="version" property="version" />
-        <result column="created_date" property="createDate" />
+        <result column="created_date" property="createdDate" />
         <result column="modified_date" property="modifiedDate" />
-
-        <collection property="kettleInfoList" javaType="ArrayList" column="id_job" ofType="KettleInfo" select="load"/>
-
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -32,17 +29,39 @@
     <select id="pageList" parameterType="java.util.HashMap" resultMap="KettleInfo">
         SELECT
         <include refid="Base_Column_List" />
-        FROM xxl_job_qrtz_kettle_info t WHERE t.type = #{type}
+        FROM xxl_job_qrtz_kettle_info t WHERE 1=1
+        <if test="name!=null and name !=''">
+            AND t.name LIKE CONCAT('%',#{name},'%')
+        </if>
+
+        <if test="type!=null and type !=''">
+            AND t.type = #{type}
+        </if>
+
+        <if test="status!=null and status !=''">
+            AND t.status = #{status}
+        </if>
         ORDER BY t.modified_date DESC
         LIMIT #{offset}, #{pageSize}
     </select>
 
-    <select id="count" parameterType="java.lang.String" resultType="int">
+    <select id="count"  parameterType="java.util.HashMap" resultType="int">
         SELECT COUNT(1)
-        FROM xxl_job_qrtz_kettle_info t WHERE t.type = #{type}
+        FROM xxl_job_qrtz_kettle_info t WHERE 1=1
+        <if test="name!=null and name !=''">
+            AND t.name LIKE CONCAT('%',#{name},'%')
+        </if>
+
+        <if test="type!=null and type !=''">
+            AND t.type = #{type}
+        </if>
+
+        <if test="status!=null and status !=''">
+            AND t.status = #{status}
+        </if>
     </select>
 
-    <select id="load" parameterType="java.lang.String" resultMap="KettleJobInfo">
+    <select id="load" parameterType="java.lang.String" resultMap="KettleInfo">
         SELECT
         <include refid="Base_Column_List" />
         FROM xxl_job_qrtz_kettle_info t

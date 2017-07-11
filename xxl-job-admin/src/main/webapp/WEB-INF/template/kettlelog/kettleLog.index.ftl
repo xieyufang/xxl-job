@@ -14,13 +14,13 @@
 	<!-- header -->
 	<@netCommon.commonHeader />
 	<!-- left -->
-	<@netCommon.commonLeft "joblog" />
+	<@netCommon.commonLeft "kettleLog" />
 	
 	<!-- Content Wrapper. Contains page content -->
 	<div class="content-wrapper">
 		<!-- Content Header (Page header) -->
 		<section class="content-header">
-			<h1>调度日志<small>任务调度中心</small></h1>
+			<h1>Kettle日志<small>任务调度中心</small></h1>
 			<!--
 			<ol class="breadcrumb">
 				<li><a><i class="fa fa-dashboard"></i>调度日志</a></li>
@@ -34,27 +34,24 @@
 	    	<div class="row">
 	    		<div class="col-xs-3">
  					<div class="input-group">
-	                	<span class="input-group-addon">执行器</span>
-                		<select class="form-control" id="jobGroup"  paramVal="<#if jobInfo?exists>${jobInfo.jobGroup}</#if>" >
-                            <option value="0" >全部</option>
-                			<#list JobGroupList as group>
-                				<option value="${group.id}" >${group.title}</option>
-                			</#list>
+	                	<span class="input-group-addon">类型</span>
+                		<select class="form-control" id="kettleType">
+                            <option value="" >全部</option>
+							<option value="KETTLE_TRANS" >转换</option>
+                            <option value="KETTLE_JOB" >作业</option>
 	                  	</select>
 	              	</div>
 	            </div>
 	            <div class="col-xs-3">
 	              	<div class="input-group">
-	                	<span class="input-group-addon">任务</span>
-                        <select class="form-control" id="jobId" paramVal="<#if jobInfo?exists>${jobInfo.id}</#if>" >
-                            <option value="0" >全部</option>
-						</select>
+	                	<span class="input-group-addon">名称</span>
+                        <input type="text" class="form-control" id="kettleName" autocomplete="on" >
 	              	</div>
 	            </div>
 	            <div class="col-xs-4">
               		<div class="input-group">
                 		<span class="input-group-addon">
-	                  		调度时间
+	                  		执行时间
 	                	</span>
 	                	<input type="text" class="form-control" id="filterTime" readonly >
 	              	</div>
@@ -78,17 +75,11 @@
 				                <thead>
 					            	<tr>
 					                	<th name="id" >id</th>
-                                        <th name="jobGroup" >执行器ID</th>
-					                	<th name="jobId" >任务ID</th>
-                                        <th name="triggerTime" >调度时间</th>
-                                        <th name="triggerCode" >调度结果</th>
-                                        <th name="triggerMsg" >调度备注</th>
-					                  	<th name="executorAddress" >执行器地址</th>
-                                        <th name="glueType" >运行模式</th>
-					                  	<th name="executorParam" >任务参数</th>
-					                  	<th name="handleTime" >执行时间</th>
-					                  	<th name="handleCode" >执行结果</th>
-					                  	<th name="handleMsg" >执行备注</th>
+                                        <th name="name" >名称</th>
+					                	<th name="kettleId" >KettleID</th>
+					                  	<th name="replayDate" >执行时间</th>
+                                        <th name="endDate" >结束时间</th>
+					                  	<th name="status" >执行结果</th>
 					                  	<th name="handleMsg" >操作</th>
 					                </tr>
 				                </thead>

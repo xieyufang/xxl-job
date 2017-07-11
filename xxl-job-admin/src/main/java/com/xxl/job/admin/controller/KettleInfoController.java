@@ -55,9 +55,12 @@ public class KettleInfoController {
     @ResponseBody
     public Map<String, Object> pageList(@RequestParam(required = false, defaultValue = "0") int start,
                                         @RequestParam(required = false, defaultValue = "10") int length,
-                                        @RequestParam(required = false) String type
+                                        @RequestParam(required = false) String name,
+                                        @RequestParam(required = false) String type,
+                                        @RequestParam(required = false) String status
                                         ){
-        return kettleInfoService.pageList(start,length,type);
+
+        return kettleInfoService.pageList(start,length,name,type,status);
     }
 
 }

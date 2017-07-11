@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface IKettleInfoDao {
 
-    public List<KettleInfo> pageList(int start, int length, String type);
+    public List<KettleInfo> pageList(int start, int length, String name,String type,String status);
 
-    public Integer count(String type);
+    public Integer count(String name,String type,String status);
 }

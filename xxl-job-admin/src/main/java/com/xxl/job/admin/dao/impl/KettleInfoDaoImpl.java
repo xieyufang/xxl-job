@@ -19,20 +19,24 @@ public class KettleInfoDaoImpl implements IKettleInfoDao{
     @Resource
     public SqlSessionTemplate sqlSessionTemplate;
     @Override
-    public List<KettleInfo> pageList(int offset, int pageSize, String type) {
+    public List<KettleInfo> pageList(int offset, int pageSize, String name,String type,String status) {
 
         Map<String,Object> params = new HashMap<String,Object>();
         params.put("offset", offset);
         params.put("pageSize", pageSize);
+        params.put("name",name);
         params.put("type",type);
+        params.put("status",status);
         return sqlSessionTemplate.selectList("KettleInfoMapper.pageList",params);
     }
 
     @Override
-    public Integer count(String type) {
+    public Integer count(String name,String type,String status) {
         Map<String,Object> params = new HashMap<String,Object>();
+        params.put("name",name);
         params.put("type",type);
-        return sqlSessionTemplate.selectOne("KettleInfoMapper.count",type);
+        params.put("status",status);
+        return sqlSessionTemplate.selectOne("KettleInfoMapper.count",params);
     }
 
 

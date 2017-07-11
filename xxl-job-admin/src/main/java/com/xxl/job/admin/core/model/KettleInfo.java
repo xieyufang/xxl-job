@@ -17,7 +17,7 @@ public class KettleInfo {
 
     private String type;
 
-    private int status;
+    private String status;
 
     private String version;
 
@@ -65,11 +65,11 @@ public class KettleInfo {
         this.type = type;
     }
 
-    public int getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

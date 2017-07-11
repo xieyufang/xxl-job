@@ -52,9 +52,9 @@ public class KettleInfoServiceImpl implements IKettleInfoService {
     }
 
     @Override
-    public Map<String, Object> pageList(int start, int length, String type) {
-        List<KettleInfo> list = kettleInfoDao.pageList(start, length, type);
-        Integer count = kettleInfoDao.count(type);
+    public Map<String, Object> pageList(int start, int length, String name,String type,String status) {
+        List<KettleInfo> list = kettleInfoDao.pageList(start, length, name,type,status);
+        Integer count = kettleInfoDao.count(name,type,status);
         Map<String, Object> maps = new HashMap<>();
         maps.put("recordsTotal", count);        // 总记录数
         maps.put("recordsFiltered", count);    // 过滤后的总记录数

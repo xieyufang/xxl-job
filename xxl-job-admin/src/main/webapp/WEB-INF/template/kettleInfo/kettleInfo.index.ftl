@@ -20,7 +20,7 @@
 	<div class="content-wrapper">
 		<!-- Content Header (Page header) -->
 		<section class="content-header">
-			<h1>Kettle管理<small>Kettle作业与转换</small></h1>
+			<h1>Kettle管理<small>任务调度中心</small></h1>
 			<!--
 			<ol class="breadcrumb">
 				<li><a><i class="fa fa-dashboard"></i>调度管理</a></li>
@@ -33,19 +33,31 @@
 	    <section class="content">
 	    
 	    	<div class="row">
-	    		<div class="col-xs-4">
+	    		<div class="col-xs-2">
 	              	<div class="input-group">
 	                	<span class="input-group-addon">类型</span>
-                		<select class="form-control" id="KettleType" >
+                		<select class="form-control" id="kettleType" >
+                            <option value="" >全部</option>
 							<option value="KETTLE_TRANS" >转换</option>
                             <option value="KETTLE_JOB" >作业</option>
 	                  	</select>
 	              	</div>
 	            </div>
+
+                <div class="col-xs-2">
+                    <div class="input-group">
+                        <span class="input-group-addon">状态</span>
+                        <select class="form-control" id="kettleStatus" >
+                            <option value="" >全部</option>
+                            <option value="KETTLE_PRODUCT" >产品</option>
+                            <option value="KETTLE_DRAFT" >草案</option>
+                        </select>
+                    </div>
+                </div>
                 <div class="col-xs-4">
                     <div class="input-group">
                         <span class="input-group-addon">名称</span>
-                        <input type="text" class="form-control" id="name" autocomplete="on" >
+                        <input type="text" class="form-control" id="kettleName" autocomplete="on" >
                     </div>
                 </div>
 	            <div class="col-xs-2">
@@ -66,14 +78,15 @@
 			              	<table id="kettle_list" class="table table-bordered table-striped">
 				                <thead>
 					            	<tr>
-					            		<th name="id" >id</th>
-					                	<th name="name" ></th>
-					                  	<th name="description" >描述</th>
-					                  	<th name="version" >版本</th>
+					            		<th name="id">id</th>
+					                	<th name="name">名称</th>
+										<th name="path">路径</th>
+					                  	<th name="description">描述</th>
                                         <th name="status" >状态</th>
-					                  	<th name="addTime" >新增时间</th>
-					                  	<th name="updateTime" >更新时间</th>
-					                  	<th name="type" >类型</th>
+					                  	<th name="version" >版本</th>
+                                        <th name="type" >类型</th>
+					                  	<th name="createdDate" >新增时间</th>
+					                  	<th name="modifiedDate" >更新时间</th>
 					                  	<th>操作</th>
 					                </tr>
 				                </thead>

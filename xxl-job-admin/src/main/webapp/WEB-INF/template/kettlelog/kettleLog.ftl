@@ -14,7 +14,7 @@
             <div class="container">
             <#-- icon -->
                 <div class="navbar-header">
-                    <a class="navbar-brand"><b>执行日志</b>Console</a>
+                    <a class="navbar-brand"><b>Kettle日志</b>Console</a>
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
                         <i class="fa fa-bars"></i>
                     </button>
@@ -67,7 +67,7 @@
     var triggerTime = '${triggerTime}';
     var logId = '${logId}';
 </script>
-<script src="${request.contextPath}/static/js/joblog.detail.1.js"></script>
+<script src="${request.contextPath}/static/js/kettleLog.detail.1.js"></script>
 
 </body>
 </html>
