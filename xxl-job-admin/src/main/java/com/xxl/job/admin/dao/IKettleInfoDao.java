@@ -11,5 +11,11 @@ public interface IKettleInfoDao {
 
     public List<KettleInfo> pageList(int offset, int pageSize, String name,String type,String status);
 
-    public Integer count(String name,String type,String status);
+    public int count(String name,String type,String status);
+
+    public int insert(KettleInfo kettleInfo);
+
+    public int update(KettleInfo kettleInfo);
+
+    public int delete(int id);
 }

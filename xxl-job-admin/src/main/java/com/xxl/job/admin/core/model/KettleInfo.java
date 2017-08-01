@@ -7,38 +7,46 @@ import java.util.Date;
  */
 public class KettleInfo {
 
-    private String id;
+    private int id;
 
-    private String name;
+    private String fileName;
+
+    private String fileNameTemp;
 
     private String path;
 
     private String description;
 
-    private String type;
+    private String kettleType;
 
-    private String status;
-
-    private String version;
+    private String kettleStatus;
 
     private Date createdDate;
 
     private Date modifiedDate;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFileName() {
+        return fileName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getFileNameTemp() {
+        return fileNameTemp;
+    }
+
+    public void setFileNameTemp(String fileNameTemp) {
+        this.fileNameTemp = fileNameTemp;
     }
 
     public String getPath() {
@@ -57,28 +65,20 @@ public class KettleInfo {
         this.description = description;
     }
 
-    public String getType() {
-        return type;
+    public String getKettleType() {
+        return kettleType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setKettleType(String kettleType) {
+        this.kettleType = kettleType;
     }
 
-    public String getStatus() {
-        return status;
+    public String getKettleStatus() {
+        return kettleStatus;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getVersion() {
-        return version;
-    }
-
-    public void setVersion(String version) {
-        this.version = version;
+    public void setKettleStatus(String kettleStatus) {
+        this.kettleStatus = kettleStatus;
     }
 
     public Date getCreatedDate() {

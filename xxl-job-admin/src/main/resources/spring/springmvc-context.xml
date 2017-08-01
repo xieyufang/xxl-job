@@ -41,5 +41,10 @@
 		</mvc:interceptor>
 	</mvc:interceptors>
 	<bean id="exceptionResolver" class="com.xxl.job.admin.controller.resolver.WebExceptionResolver" />
-	
+
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxInMemorySize">
+			<value>1638400</value>
+		</property>
+	</bean>
 </beans>

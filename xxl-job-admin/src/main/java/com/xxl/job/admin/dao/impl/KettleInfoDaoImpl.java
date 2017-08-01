@@ -31,7 +31,7 @@ public class KettleInfoDaoImpl implements IKettleInfoDao{
     }
 
     @Override
-    public Integer count(String name,String type,String status) {
+    public int count(String name,String type,String status) {
         Map<String,Object> params = new HashMap<String,Object>();
         params.put("name",name);
         params.put("type",type);
@@ -39,5 +39,18 @@ public class KettleInfoDaoImpl implements IKettleInfoDao{
         return sqlSessionTemplate.selectOne("KettleInfoMapper.count",params);
     }
 
+    @Override
+    public int insert(KettleInfo kettleInfo) {
+        return sqlSessionTemplate.insert("KettleInfoMapper.insert",kettleInfo);
+    }
 
+    @Override
+    public int update(KettleInfo kettleInfo) {
+        return sqlSessionTemplate.update("KettleInfoMapper.update",kettleInfo);
+    }
+
+    @Override
+    public int delete(int id) {
+        return sqlSessionTemplate.delete("KettleInfoMapper.delete",id);
+    }
 }

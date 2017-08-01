@@ -1,22 +1,23 @@
 package com.xxl.job.admin.controller;
 
-import com.xxl.job.admin.core.enums.ExecutorFailStrategyEnum;
-import com.xxl.job.admin.core.model.KettleJobInfo;
-import com.xxl.job.admin.core.model.XxlJobGroup;
-import com.xxl.job.admin.core.route.ExecutorRouteStrategyEnum;
+import com.xxl.job.admin.core.model.KettleInfo;
 import com.xxl.job.admin.service.IKettleInfoService;
-import com.xxl.job.core.enums.ExecutorBlockStrategyEnum;
-import com.xxl.job.core.glue.GlueTypeEnum;
+import com.xxl.job.core.biz.model.ReturnT;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * Created by xieyufang on 2017/7/6.
@@ -61,6 +62,29 @@ public class KettleInfoController {
                                         ){
 
         return kettleInfoService.pageList(start,length,name,type,status);
+    }
+
+
+    @RequestMapping(method = RequestMethod.POST, value = "/upload")
+    @ResponseBody
+    public ReturnT<String> upload(@RequestParam(value = "file",required = true) MultipartFile file) throws IOException {
+        File temp = new File(System.getProperty("catalina.home"),"repository/temp");
+        if(!temp.exists()){
+            temp.mkdirs();
+        }
+
+        String fileNameTemp = UUID.randomUUID().toString().toUpperCase();
+
+        file.transferTo(new File(temp, fileNameTemp));
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        return new ReturnT<>(fileNameTemp);
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/add")
+    @ResponseBody
+    public ReturnT<String> add(KettleInfo kettleInfo) throws IOException{
+        return kettleInfoService.save(kettleInfo);
     }
 
 }

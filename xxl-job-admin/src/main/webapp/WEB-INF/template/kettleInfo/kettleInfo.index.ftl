@@ -8,6 +8,8 @@
   	<link rel="stylesheet" href="${request.contextPath}/static/adminlte/plugins/datatables/dataTables.bootstrap.css">
     <link rel="stylesheet" href="${request.contextPath}/static/adminlte/plugins/Select/css/select.bootstrap.min.css">
 
+    <link rel="stylesheet" href="${request.contextPath}/static/adminlte/plugins/fileInput/css/fileinput.min.css">
+    <link rel="stylesheet" href="${request.contextPath}/static/adminlte/plugins/fileInput/css/fileinput-rtl.min.css">
 </head>
 <body class="hold-transition skin-blue sidebar-mini <#if cookieMap?exists && "off" == cookieMap["adminlte_settings"].value >sidebar-collapse</#if>">
 <div class="wrapper">
@@ -83,7 +85,6 @@
 										<th name="path">路径</th>
 					                  	<th name="description">描述</th>
                                         <th name="status" >状态</th>
-					                  	<th name="version" >版本</th>
                                         <th name="type" >类型</th>
 					                  	<th name="createdDate" >新增时间</th>
 					                  	<th name="modifiedDate" >更新时间</th>
@@ -104,7 +105,7 @@
 	<@netCommon.commonFooter />
 </div>
 
-<!-- job新增.模态框 -->
+<!-- kettle新增.模态框 -->
 <div class="modal fade" id="addModal" tabindex="-1" role="dialog"  aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
@@ -113,32 +114,44 @@
          	</div>
          	<div class="modal-body">
 				<form class="form-horizontal form" role="form" >
-					<div class="form-group">
-						<label for="firstname" class="col-sm-2 control-label">类型<font color="red">*</font></label>
-						<div class="col-sm-4">
-                            <select class="form-control" id="KettleType" >
-                                <option value="KETTLE_TRANS" >转换</option>
-                                <option value="KETTLE_JOB" >作业</option>
-                            </select>
-						</div>
-                        <label for="lastname" class="col-sm-2 control-label">名称<font color="red">*</font></label>
-                        <div class="col-sm-4"><input type="text" class="form-control" name="jobDesc" placeholder="请输入“描述”" maxlength="50" ></div>
-					</div>
                     <div class="form-group">
-                        <label for="firstname" class="col-sm-2 control-label">描述<font color="red">*</font></label>
-                        <div class="col-sm-4"><input type="text" class="form-control" name="jobDesc" placeholder="请输入“描述”" maxlength="50" ></div>
+                        <label for="lastname" class="col-sm-2 control-label">路径<font color="red">*</font></label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" name="path" placeholder="请输入“文件路径”" maxlength="20" >
+                        </div>
+
                         <label for="lastname" class="col-sm-2 control-label">状态<font color="red">*</font></label>
                         <div class="col-sm-4">
-                            <select class="form-control" id="status" >
-                                <option value="KETTLE_DRAFT" >草案</option>
+                            <select class="form-control" name="kettleStatus" >
+                                <option value="KETTLE_DRAFT" selected>草案</option>
                                 <option value="KETTLE_PRODUCT" >产品</option>
                             </select>
 						</div>
                     </div>
+                    <div class="form-group">
+                        <label for="firstname" class="col-sm-2 control-label">描述<font color="red">*</font></label>
+						<div class="col-sm-10"><textarea rows="3" cols="20" class="form-control" name="description" maxlength="255" ></textarea></div>
+                    </div>
+					</br>
+                    </br>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <label for="firstname" class="col-sm-2 control-label">上传文件<font color="red">*</font></label> <hr>
+                        </div>
+                    </div>
+                    <div class="form-group">
 
+                        <div class="col-sm-offset-1 col-sm-11">
+
+                            <input id ="input-file" type="file" name="file" class="file-loading" data-show-upload="false" data-show-preview="false">
+							<input id ="file-name" type="hidden" name="fileName">
+                            <input id ="file-name-temp" type="hidden" name="fileNameTemp">
+                            <input id ="kettle-type" type="hidden" name="kettleType">
+                        </div>
+                    </div>
                     <hr>
 					<div class="form-group">
-						<div class="col-sm-offset-4 col-sm-6">
+						<div class="col-sm-offset-5">
 							<button type="submit" class="btn btn-primary"  >保存</button>
 							<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 						</div>
@@ -252,5 +265,11 @@
 <!-- moment -->
 <script src="${request.contextPath}/static/adminlte/plugins/daterangepicker/moment.min.js"></script>
 <script src="${request.contextPath}/static/js/kettleInfo.index.1.js"></script>
+
+<#-- file input -->
+<script src="${request.contextPath}/static/adminlte/plugins/fileInput/js/plugins/sortable.min.js" type="text/javascript"></script>
+<script src="${request.contextPath}/static/adminlte/plugins/fileInput/js/plugins/purify.min.js" type="text/javascript"></script>
+<script src="${request.contextPath}/static/adminlte/plugins/fileInput/js/fileinput.min.js"></script>
+<script src="${request.contextPath}/static/adminlte/plugins/fileInput/js/locales/zh.js"></script>
 </body>
 </html>

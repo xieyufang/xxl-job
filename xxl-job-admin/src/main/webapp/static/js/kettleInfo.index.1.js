@@ -22,10 +22,10 @@ $(function () {
         //"scrollX": true,	// X轴滚动条，取消自适应
         "columns": [
             {"data": 'id', "visible": false},
-            {"data": 'name', "visible": true,"width":"15%"},
+            {"data": 'fileName', "visible":true,"width":"15%"},
             {"data": 'path', "visible": true,"width":"15%"},
             {"data": 'description', "visible": true,"width":"30%"},
-            {"data": 'status',
+            {"data": 'kettleStatus',
                 "visible": true,
                 "width":"10%",
                 "render": function (data, type, row) {
@@ -37,8 +37,7 @@ $(function () {
                     return "草案";
                 }
             },
-            {"data": 'version', "visible": true,"width":"15%"},
-            {"data": 'type', "visible": false},
+            {"data": 'kettleType', "visible": false},
             {"data": 'createdDate', "visible": false},
             {"data": 'modifiedDate', "visible": false},
             {"data":"操作",
@@ -100,4 +99,89 @@ $(function () {
         $('#addModal').modal({backdrop: false, keyboard: false}).modal('show');
     });
 
+    $("#input-file").fileinput({
+        rtl: true,
+        language:'zh',
+        allowedFileExtensions: ["ktr", "kjb"],
+        uploadUrl:base_url+"/kettleInfo/upload",
+        uploadAsync: true
+    }).on("fileuploaded",function (event, data, id, index) {
+
+        if(data.response.code == 200){
+
+
+            $("#file-name-temp").val(data.response.content);
+
+            var file = $("#input-file").val();
+            $("#file-name").val(file.substring(file.lastIndexOf("\\") + 1));
+            if($("#file-name").val().indexOf("ktr")>0){
+                $("#kettle-type").val("KETTLE_TRANS")
+            }else if($("#file-name").val().indexOf("kjb")>0){
+                $("#kettle-type").val("KETTLE_JOB")
+            }else{
+                $("#file-name").val("");
+            }
+        }
+
+    }).on("filebatchselected", function(event, files){
+        $("#input-file").fileinput("upload");
+    });
+
+
+    var addModalValidate = $("#addModal .form").validate({
+        errorElement: 'span',
+        errorClass: 'help-block',
+        focusInvalid: true,
+        rules: {
+            name: {
+                required: true
+            }
+        },
+        messages: {
+            name: {
+                required: "上传文件"
+            }
+        },
+        highlight: function (element) {
+            $(element).closest('.form-group').addClass('has-error');
+        },
+        success: function (label) {
+            label.closest('.form-group').removeClass('has-error');
+            label.remove();
+        },
+        errorPlacement: function (error, element) {
+            element.parent('div').append(error);
+        },
+        submitHandler: function (form) {
+            $.post(base_url + "/kettleInfo/add", $("#addModal .form").serialize(), function (data, status) {
+                if (data.code == "200") {
+                    $('#addModal').modal('hide');
+                    layer.open({
+                        title: '系统提示',
+                        content: '新增Kettle成功',
+                        icon: '1',
+                        end: function (layero, index) {
+                            kettleTable.ajax.reload();
+                            //window.location.reload();
+                        }
+                    });
+                } else {
+                    layer.open({
+                        title: '系统提示',
+                        content: (data.msg || "新增失败"),
+                        icon: '2'
+                    });
+                }
+            });
+        }
+    });
+
+
+    $("#addModal").on('hide.bs.modal', function () {
+        $("#addModal .form")[0].reset();
+        addModalValidate.resetForm();
+        $("#addModal .form .form-group").removeClass("has-error");
+        $(".remote_panel").show();	// remote
+
+    });
 });
